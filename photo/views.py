@@ -22,7 +22,6 @@ def home(request):
     mot_form = MotCleForm()
     diapo_form = DiapoForm()
 
-    print(request.POST)
     if request.method == 'POST':
         if request.POST.get('mot', False):
             mot_form = handle_mots(request)
