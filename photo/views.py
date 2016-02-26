@@ -9,11 +9,13 @@ def handle_mots(request):
         mot_form.save()
     return mot_form
 
+
 def handle_boite(request):
     boite_form = BoiteForm(request.POST)
     if boite_form.is_valid():
         boite_form.save()
     return boite_form
+
 
 def handle_diapo(request):
     diapo_form = DiapoForm(request.POST)

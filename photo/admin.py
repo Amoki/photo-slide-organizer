@@ -4,7 +4,7 @@ from photo.models import Diapo, Boite, MotCle
 
 
 class BoiteAdmin(admin.ModelAdmin):
-    list_display = ('numero',)
+    list_display = ('repere',)
 
 admin.site.register(Boite, BoiteAdmin)
 
