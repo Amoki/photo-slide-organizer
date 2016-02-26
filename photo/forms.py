@@ -28,9 +28,6 @@ class DiapoForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DiapoForm, self).__init__(*args, **kwargs)
-        # self.fields["description"].widget = forms.widgets.CheckboxSelectMultiple()
-        # self.fields["description"].help_text = ""
-        # self.fields["description"].queryset = MotCle.objects.all()
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'

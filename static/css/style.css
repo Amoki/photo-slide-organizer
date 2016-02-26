@@ -6,3 +6,11 @@
     height:100vh;
     overflow-y: scroll;
 }
+
+.checked {
+    background: #2b9cff;
+}
+
+.unchecked {
+    background: white;
+}
