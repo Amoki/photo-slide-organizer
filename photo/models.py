@@ -8,8 +8,16 @@ class Boite(models.Model):
         return str(self.repere)
 
 
+class Groupe(models.Model):
+    nom = models.CharField(max_length=128, unique=True)
+
+    def __str__(self):
+        return self.nom
+
+
 class MotCle(models.Model):
     mot = models.CharField(max_length=128, unique=True)
+    groupe = models.ManyToManyField('Groupe', blank=True)
 
     def __str__(self):
         return self.mot

@@ -1,13 +1,28 @@
 from django.shortcuts import render
-from photo.models import MotCle, Diapo
-from photo.forms import MotCleForm, DiapoForm, BoiteForm
+from photo.models import MotCle, Diapo, Groupe
+from photo.forms import MotCleForm, DiapoForm, BoiteForm, GroupeForm
 
 
 def handle_mots(request):
     mot_form = MotCleForm(request.POST)
     if mot_form.is_valid():
         mot_form.save()
+    else:
+        existing_word = MotCle.objects.get(mot=request.POST.get('mot'))
+        copied_request = request.POST.copy()
+        for group in existing_word.groupe.all():
+            if group.pk not in copied_request.getlist('groupe'):
+                copied_request.update({'groupe': group.pk})
+        mot_form = MotCleForm(copied_request, instance=existing_word)
+        mot_form.save()
     return mot_form
+
+
+def handle_groupe(request):
+    groupe_form = GroupeForm(request.POST)
+    if groupe_form.is_valid():
+        groupe_form.save()
+    return groupe_form
 
 
 def handle_boite(request):
@@ -25,24 +40,33 @@ def handle_diapo(request):
 
 
 def home(request):
-    mots_cles = MotCle.objects.all()
     mot_form = MotCleForm()
     diapo_form = DiapoForm()
     boite_form = BoiteForm()
+    groupe_form = GroupeForm()
 
     if request.method == 'POST':
-        if request.POST.get('mot', False):
+        if request.path == '/mot/':
             mot_form = handle_mots(request)
-        elif request.POST.get('description', False):
+        elif request.path == '/diapo/':
             diapo_form = handle_diapo(request)
-        elif request.POST.get('boite', False):
-            boite_form = handle_diapo(request)
+        elif request.path == '/boite/':
+            boite_form = handle_boite(request)
+        elif request.path == '/groupe/':
+            groupe_form = handle_groupe(request)
 
     # GET
+    groupes = Groupe.objects.all()
+    mots_cles = {}
+    for groupe in groupes:
+        mots_cles[groupe.nom] = MotCle.objects.filter(groupe=groupe)
+
     data = {
         'mots_cles': mots_cles,
+        'groupes': groupes,
         'mot_form': mot_form,
         'diapo_form': diapo_form,
         'boite_form': boite_form,
+        'groupe_form': groupe_form,
     }
     return render(request, 'index.html', data)
