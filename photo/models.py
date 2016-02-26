@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Boite(models.Model):
-    numero = models.PositiveIntegerField(unique=True)
+    numero = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
         return str(self.numero)
