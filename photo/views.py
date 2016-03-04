@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from photo.models import MotCle, Diapo, Groupe
+from photo.models import MotCle, Groupe
 from photo.forms import MotCleForm, DiapoForm, BoiteForm, GroupeForm
 
 
@@ -72,9 +72,12 @@ def home(request):
 
 
 def search(request):
-    results = []
+    results = set()
     if request.method == 'POST':
-        print(request.POST)
+        tags = request.POST.getlist('description')
+        for tag in tags:
+            for diapo in MotCle.objects.get(id=tag).diapo_set.all():
+                results.add(diapo)
 
     groupes = Groupe.objects.all()
     mots_cles = {}

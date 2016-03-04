@@ -33,4 +33,5 @@ class Diapo(models.Model):
         unique_together = ("boite", "index")
 
     def __str__(self):
-        return ("%s/%s" % (self.boite, self.index))
+        motCles = self.description.all()
+        return ("Repère %s Index %s : %s" % (self.boite, self.index, ', '.join(str(m) for m in motCles)))
