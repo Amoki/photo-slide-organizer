@@ -32,14 +32,14 @@ $(document).ready(function() {
 
   $('select#id_description option').removeAttr("selected");
 
-  $('#add-photo').submit(function() {
+  $('#tags-form').submit(function() {
     $('#tag :checked').each(function() {
       $('<input />')
         .attr('id', 'id_description')
         .attr('name', 'description')
         .attr('value', $(this).val())
         .hide()
-        .appendTo('#add-photo');
+        .appendTo('#tags-form');
     });
     return true;
   });

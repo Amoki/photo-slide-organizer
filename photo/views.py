@@ -55,7 +55,6 @@ def home(request):
         elif request.path == '/groupe/':
             groupe_form = handle_groupe(request)
 
-    # GET
     groupes = Groupe.objects.all()
     mots_cles = {}
     for groupe in groupes:
@@ -70,3 +69,21 @@ def home(request):
         'groupe_form': groupe_form,
     }
     return render(request, 'index.html', data)
+
+
+def search(request):
+    results = []
+    if request.method == 'POST':
+        print(request.POST)
+
+    groupes = Groupe.objects.all()
+    mots_cles = {}
+    for groupe in groupes:
+        mots_cles[groupe.nom] = MotCle.objects.filter(groupe=groupe)
+
+    data = {
+        'results': results,
+        'mots_cles': mots_cles,
+        'groupes': groupes,
+    }
+    return render(request, 'search.html', data)

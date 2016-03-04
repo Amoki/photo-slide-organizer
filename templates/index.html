@@ -86,15 +86,12 @@
       </div>
     </div>
 
-
-
-
     <div class="row">
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-body">
           <h2>Ajouter une photo</h2>
-            <form action="/diapo/" method="post" id="add-photo">
+            <form action="/diapo/" method="post" id="tags-form">
               {% csrf_token %}
               {{ diapo_form.non_field_errors.as_ul }}
               {% for field in diapo_form.visible_fields %}
