@@ -16,19 +16,6 @@ $(document).ready(function() {
     }
   });
 
-  $("#groupes-list li").click(function(e) {
-    $('.tags-groups').each(function() {
-      $(this).hide();
-    });
-    $('#tags-' + $(this).text()).show();
-  });
-
-  // Hide groups expect first
-  $('.tags-groups:gt(0)').hide();
-
-  // Hide tags
-  $('#id_description').hide();
-  $('#id_description_label').hide();
 
   $('select#id_description option').removeAttr("selected");
 

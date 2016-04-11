@@ -1,31 +1,6 @@
-from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.forms import ModelForm
-from photo.models import MotCle, Diapo, Boite, Groupe
-
-
-class MotCleForm(ModelForm):
-    class Meta:
-        model = MotCle
-        fields = ['mot', 'groupe']
-
-    def __init__(self, *args, **kwargs):
-        super(MotCleForm, self).__init__(*args, **kwargs)
-
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-
-
-class GroupeForm(ModelForm):
-    class Meta:
-        model = Groupe
-        fields = ['nom']
-
-    def __init__(self, *args, **kwargs):
-        super(GroupeForm, self).__init__(*args, **kwargs)
-
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+from photo.models import Diapo, Boite
 
 
 class BoiteForm(ModelForm):

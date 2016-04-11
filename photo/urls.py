@@ -4,8 +4,6 @@ from photo.views import home, search
 urlpatterns = [
     url(r'^$', home),
     url(r'boite/', home),
-    url(r'mot/', home),
     url(r'diapo/', home),
-    url(r'groupe/', home),
     url(r'search/', search),
 ]

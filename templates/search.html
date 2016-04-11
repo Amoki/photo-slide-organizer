@@ -4,21 +4,11 @@
 {% block content %}
 
 <div class="row" id="main">
-  <div class="col-md-2" id="groupes">
-    <h2>Groupes</h2>
-    <ul class="list-group" id="groupes-list">
-    {% for groupe in groupes %}
-      <li class="list-group-item" id="tag">{{groupe}}</li>
-    {% endfor %}
-    </ul>
-  </div>
-
   <div class="col-md-2" id="mots">
   <h2>Mots Clés</h2>
-  {% for groupe in groupes %}
     <form class="tags-groups" id="tags-{{ groupe }}">
       <ul class="list-group" id="tags-list">
-      {% for mot in mots_cles|get_item:groupe.nom %}
+      {% for mot in mots_cles %}
         <li class="list-group-item" id="tag">
           <input type="checkbox" id="checkbox_{{ mot }}" value="{{ mot.id }}">
           <label for="checkbox_{{ mot }}">{{ mot }}</label>
@@ -26,7 +16,6 @@
       {% endfor %}
       </ul>
     </form>
-  {% endfor %}
   </div>
 
 
