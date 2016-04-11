@@ -39,7 +39,6 @@ def search(request):
     results = []
     if request.method == 'POST':
         tags = request.POST.getlist('description')
-        print(tags)
         diapos = Diapo.objects.all()
         for tag in tags:
             diapos = diapos.filter(words__pk=tag)
