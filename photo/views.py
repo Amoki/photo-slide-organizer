@@ -1,36 +1,20 @@
 from django.shortcuts import render
-from django.db.models import Q
 from photo.models import MotCle, Diapo
-from photo.forms import DiapoForm, BoiteForm
-
-
-def handle_boite(request):
-    boite_form = BoiteForm(request.POST)
-    if boite_form.is_valid():
-        boite_form.save()
-    return boite_form
-
-
-def handle_diapo(request):
-    diapo_form = DiapoForm(request.POST)
-    if diapo_form.is_valid():
-        diapo_form.save()
-    return diapo_form
+from photo.forms import DiapoForm
 
 
 def home(request):
     diapo_form = DiapoForm()
-    boite_form = BoiteForm()
-
+    save_success = False
     if request.method == 'POST':
-        if request.path == '/diapo/':
-            diapo_form = handle_diapo(request)
-        elif request.path == '/boite/':
-            boite_form = handle_boite(request)
+        diapo_form = DiapoForm(request.POST)
+        if diapo_form.is_valid():
+            diapo_form.save()
+            save_success = True
 
     data = {
         'diapo_form': diapo_form,
-        'boite_form': boite_form,
+        'save_success': save_success and not diapo_form.errors
     }
     return render(request, 'index.html', data)
 

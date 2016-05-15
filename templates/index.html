@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
-{% load get_item %}
 {% block content %}
 
 <div class="row" id="main">
+  {% if save_success %}
+  <div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Succès !</strong> La diapo a bien été enregistrée !
+  </div>
+  {% endif %}
+  {% if diapo_form.non_field_errors %}
+  <div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Echec !</strong> {{ diapo_form.non_field_errors.as_ul }}
+  </div>
+  {% endif %}
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-body">
       <h2>Ajouter une photo</h2>
         <form action="/diapo/" method="post">
           {% csrf_token %}
-          {{ diapo_form.non_field_errors.as_ul }}
           {% for field in diapo_form %}
           <div class="form-group">
             {{ field.errors }}
@@ -18,23 +28,6 @@
           </div>
           {% endfor %}
             <input type="submit" class="btn btn-default" value="Ajouter" />
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-body">
-      <h2>Ajouter une boite</h2>
-        <form action="/boite/" method="post">
-          {% csrf_token %}
-          {% for field in boite_form %}
-          <div class="form-group">
-            {{ field.errors }}
-            {{ field.label_tag }} {{ field }}
-          </div>
-          {% endfor %}
-          <input type="submit" class="btn btn-default" value="Ajouter" />
         </form>
       </div>
     </div>

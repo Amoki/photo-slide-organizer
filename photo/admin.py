@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from photo.models import Diapo, Boite, MotCle
+from photo.models import Diapo, Localisation, MotCle
 
 
-class BoiteAdmin(admin.ModelAdmin):
-    list_display = ('repere',)
+class LocalisationAdmin(admin.ModelAdmin):
+    list_display = ('type', 'numero')
 
-admin.site.register(Boite, BoiteAdmin)
+admin.site.register(Localisation, LocalisationAdmin)
 
 
 class MotCleAdmin(admin.ModelAdmin):
@@ -16,6 +16,6 @@ admin.site.register(MotCle, MotCleAdmin)
 
 
 class DiapoAdmin(admin.ModelAdmin):
-    list_display = ('boite', 'index', 'description')
+    list_display = ('localisation', 'index', 'description')
 
 admin.site.register(Diapo, DiapoAdmin)
